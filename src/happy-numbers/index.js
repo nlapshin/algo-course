@@ -1,20 +1,102 @@
 class HappyNumbers {
   constructor(numbersLength) {
-    this.numbersLength = numbersLength
+    this.numbersLength = parseInt(numbersLength)
     this.cache = {}
   }
 
+
   count() {
     let count = BigInt(0)
+    let min = 0
+    let max = this.numbersLength * 9
 
-    const hash = this.calcHash()
+    let hash = {}
 
-    for (let key in hash) {
-      count += BigInt(hash[key] * hash[key])
-    }
+    console.log(max)
 
+    // for (let i = min; i <= max; i++) {
+    //   if (i < 10) {
+    //     hash[i] = 1
+    //   } else {
+    //     hash[i] = 0
+    //   }
+
+    //   // for (let j = i - 9; j <= i; j++) {
+    //   //   if (j < 0) {
+    //   //     continue
+    //   //   }
+
+    //   //   if (!hash[i]) {
+    //   //     hash[i] = 0
+    //   //   }
+
+    //   //   if (j < 10) {
+    //   //     hash[i] = j
+    //   //   } else {
+    //   //     hash[i] = 10 - Math.abs(j - 10)
+    //   //   }
+
+    //     // if (j >= 10 && j < 20) {
+    //     //   hash[i] += 10 - Math.abs(j - 10) - 1
+    //     // }
+    //   // }
+    // // }
+
+    // for (let key in hash) {
+    //   count += BigInt(hash[key] * hash[key])
+    // }
+  
     return count
   }
+
+
+  // count() {
+  //   let count = BigInt(0)
+  //   let min = 0
+  //   let max = this.numbersLength * 9
+
+  //   let hash = {}
+
+  //   console.log(max)
+
+  //   for (let i = min; i <= max; i++) {
+  //     for (let j = i - 9; j <= i; j++) {
+  //       if (j < 0) {
+  //         continue
+  //       }
+
+  //       if (!hash[i]) {
+  //         hash[i] = 0
+  //       }
+
+  //       if (j < 10) {
+  //         hash[i] += j + 1
+  //       }
+
+  //       if (j >= 10 && j < 20) {
+  //         hash[i] += 10 - Math.abs(j - 10) - 1
+  //       }
+  //     }
+  //   }
+
+  //   for (let key in hash) {
+  //     count += BigInt(hash[key] * hash[key])
+  //   }
+  
+  //   return count
+  // }
+
+  // count() {
+  //   let count = BigInt(0)
+
+  //   const hash = this.calcHash()
+
+  //   for (let key in hash) {
+  //     count += BigInt(hash[key] * hash[key])
+  //   }
+
+  //   return count
+  // }
 
   calcHash() {
     const hash = {}

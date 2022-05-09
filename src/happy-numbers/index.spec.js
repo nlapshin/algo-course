@@ -1,12 +1,13 @@
 const fs = require('fs')
+const path = require('path')
 const { performance } = require('perf_hooks');
 
 const HappyNumbers = require('./index')
 
 describe('happyNumber.count', function() {
-  for (let i = 0; i < 10; i++) {
-    const input = readStringFromFile(`./fixtures/test.${i}.in`)
-    const expected = BigInt(readStringFromFile(`./fixtures/test.${i}.out`))
+  for (let i = 0; i < 1; i++) {
+    const input = readStringFromFile(path.resolve(__dirname, `./fixtures/test.${i}.in`))
+    const expected = BigInt(readStringFromFile(path.resolve(__dirname, `./fixtures/test.${i}.out`)))
 
     test(`N = ${input}`, function() {
       const happyNumbers = new HappyNumbers(input)
@@ -35,8 +36,6 @@ function test(message, handler) {
   
     console.log('\x1b[32m', `  ${message}. Success: ${duration}ms`)
   } catch(err) {
-    console.log(err)
-
     console.log('\x1b[31m', `  ${message}. Error: ${err}`)
   }
 }
