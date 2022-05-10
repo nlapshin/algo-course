@@ -1,5 +1,6 @@
 const fs = require('fs')
-const { performance } = require('perf_hooks');
+const path = require('path')
+const { describe, test, assertEqual } = require('./test')
 
 const HappyNumbers = require('./index')
 
@@ -17,36 +18,6 @@ describe('happyNumber.count', function() {
   }
 })
 
-function describe(message, handler) {
-  console.log("\x1b[36m", message)
-
-  handler()
-}
-
-
-function test(message, handler) {
-  try {
-    const start = performance.now()
-  
-    handler()
-  
-    const end = performance.now()
-    const duration = (end - start).toFixed(3)
-  
-    console.log('\x1b[32m', `  ${message}. Success: ${duration}ms`)
-  } catch(err) {
-    console.log(err)
-
-    console.log('\x1b[31m', `  ${message}. Error: ${err}`)
-  }
-}
-
-function assertEqual(value, compareValue) {
-  if (value !== compareValue) {
-    throw `${value} don't equal ${compareValue}`
-  }
-}
-
 function readStringFromFile(filePath) {
-  return fs.readFileSync(filePath).toString().trim()
+  return fs.readFileSync(path.resolve(__dirname, filePath)).toString().trim()
 }
