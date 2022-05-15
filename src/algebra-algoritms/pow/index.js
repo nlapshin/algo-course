@@ -43,6 +43,10 @@ class Pow {
     
     return result
   }
+
+  round(num, decimals = 11) {
+    return Number((Math.round(num + "e" + decimals)  + "e-" + decimals));
+  }
 }
 
 module.exports = Pow

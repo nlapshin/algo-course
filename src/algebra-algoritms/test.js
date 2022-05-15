@@ -28,8 +28,16 @@ function assertEqual(value, compareValue) {
   }
 }
 
+function assertDeepEqual(value, compareValue) {
+  if (JSON.stringify(value) !== JSON.stringify(compareValue)) {
+    throw `${value} don't equal ${compareValue}`
+  }
+}
+
+
 module.exports = {
   describe,
   test,
-  assertEqual
+  assertEqual,
+  assertDeepEqual
 }
