@@ -10,6 +10,10 @@ class Pow {
   }
 
   multiplication(x, n) {
+    if (n === 0) {
+      return 1
+    }
+
     let result = x
     let i = 2
 
