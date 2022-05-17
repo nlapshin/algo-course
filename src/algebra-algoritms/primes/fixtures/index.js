@@ -3,7 +3,7 @@ const path = require('path')
 
 const fixtures = []
 
-for (let i = 0; i < 14; i++) {
+for (let i = 0; i < 10; i++) {
   const input = readStringFromFile(`./data/test.${i}.in`)
   const expected = +readStringFromFile(`./data/test.${i}.out`)
   const [x] = input.split('\r\n').map(item => +item.trim())
