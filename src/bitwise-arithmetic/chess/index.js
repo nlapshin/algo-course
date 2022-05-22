@@ -6,15 +6,54 @@ class Chess {
   }
 
   king(pos) {
+    const variants = [[0], [1.5], [3], [4.5], [6], [7.5], [9], [10.5]]
+
+    return this.calculate(pos, variants)
+  }
+
+  knight(pos) {
+    const variants = [[0, 0, 3], [3, 3, 0], [3, 3, 6], [6, 6, 3], [6, 6, 9], [9, 9, 6], [9, 9, 0], [0, 0, 9]]
+
+    return this.calculate(pos, variants)
+  }
+
+  rook(pos) {
+    const variants = []
+    const directions = [0, 3, 6, 9]
+
+    for (let i = 0; i < directions.length; i++) {
+      const moves = []
+
+      for (let j = 0; j < 8; j++) {
+        moves.push(directions[i])
+
+        variants.push([...moves])
+      }
+    }
+
+    return this.calculate(pos, variants)
+  }
+
+  calculate(pos, variants) {
     let count = 0
     let mask = 0n
 
     const number = this.numberByPos(pos)
-    const variants = [0, 1.5, 3, 4.5, 6, 7.5, 9, 10.5]
 
     for (let i = 0; i < variants.length; i++) {
-      const clockPos = variants[i]
-      const newPos = this.shift(clockPos, number)
+      let newPos = number
+      const moves = variants[i]
+
+      for (let j = 0; j < moves.length; j++) {
+        const clockPos = moves[j]
+        newPos = this.shift(clockPos, newPos)
+
+        if (newPos === 0n) {
+          break
+        }
+      }
+
+      // this.showChessBox(newPos)
 
       count += newPos > 0n ? 1 : 0
       mask += newPos

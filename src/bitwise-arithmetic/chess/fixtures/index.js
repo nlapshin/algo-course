@@ -2,7 +2,9 @@ const fs = require('fs')
 const path = require('path')
 
 module.exports = {
-  king: getFixtures('king')
+  king: getFixtures('king'),
+  knight: getFixtures('knight'),
+  rook: getFixtures('rook')
 }
 
 function getFixtures(name) {
