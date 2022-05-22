@@ -4,7 +4,9 @@ const path = require('path')
 module.exports = {
   king: getFixtures('king'),
   knight: getFixtures('knight'),
-  rook: getFixtures('rook')
+  rook: getFixtures('rook'),
+  bishop: getFixtures('bishop'),
+  queen: getFixtures('queen')
 }
 
 function getFixtures(name) {

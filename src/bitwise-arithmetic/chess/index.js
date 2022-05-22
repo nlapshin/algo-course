@@ -34,6 +34,40 @@ class Chess {
     return this.calculate(pos, variants)
   }
 
+  bishop(pos) {
+    const variants = []
+    const directions = [1.5, 4.5, 7.5, 10.5]
+
+    for (let i = 0; i < directions.length; i++) {
+      const moves = []
+
+      for (let j = 0; j < 8; j++) {
+        moves.push(directions[i])
+
+        variants.push([...moves])
+      }
+    }
+
+    return this.calculate(pos, variants)
+  }
+
+  queen(pos) {
+    const variants = []
+    const directions = [0, 1.5, 3, 4.5, 6, 7.5, 9, 10.5]
+
+    for (let i = 0; i < directions.length; i++) {
+      const moves = []
+
+      for (let j = 0; j < 8; j++) {
+        moves.push(directions[i])
+
+        variants.push([...moves])
+      }
+    }
+
+    return this.calculate(pos, variants)
+  }
+
   calculate(pos, variants) {
     let count = 0
     let mask = 0n
