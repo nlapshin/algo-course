@@ -15,6 +15,12 @@ export class UtilsSorting implements IUtilsSorting {
     return [...arr].sort((a, b) => a - b)
   }
 
+  public swap (arr: number[], i: number, j: number): void {
+    arr[i] = arr[i] ^ arr[j]
+    arr[j] = arr[i] ^ arr[j]
+    arr[i] = arr[i] ^ arr[j]
+  }
+
   private getPseudoRandom (min: number, max: number): number {
     return Math.floor(Math.random() * (max - min) + min)
   }
