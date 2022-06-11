@@ -13,12 +13,13 @@ import { BubbleSorting, InsertionSorting, SortingFunc } from './'
 const tap = new Tap()
 const utils = new UtilsSorting()
 const reports = new Reports()
-const fixturesSource = generateFixtures([10, 100, 1000, 10000])
+const fixturesSource = generateFixtures([10, 100, 1000])
 
 bubbleSimpleTest(utils.deepCopy(fixturesSource))
 bubbleOptimizeTest(utils.deepCopy(fixturesSource))
 insertionSimpleTest(utils.deepCopy(fixturesSource))
 insertionShiftTest(utils.deepCopy(fixturesSource))
+insertionShiftBinaryTest(utils.deepCopy(fixturesSource))
 
 reports.showConsole()
 
@@ -54,6 +55,15 @@ function insertionShiftTest (fixtures: IFixture[]) {
 
   const name = 'insertion.shift'
   const handler = insertionSorting.shift.bind(insertionSorting)
+
+  testWrap(name, fixtures, handler)
+}
+
+function insertionShiftBinaryTest (fixtures: IFixture[]) {
+  const insertionSorting = new InsertionSorting()
+
+  const name = 'insertion.shiftBinary'
+  const handler = insertionSorting.shiftBinary.bind(insertionSorting)
 
   testWrap(name, fixtures, handler)
 }

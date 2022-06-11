@@ -40,4 +40,25 @@ export class InsertionSorting implements IInsertionSorting {
 
     return arr
   }
+
+  shiftBinary (arr: number[]): number[] {
+    const n = arr.length
+
+    for (let i = 1; i < n; i++) {
+      const current = arr[i]
+      let j = i
+
+      const newIndex = this.utils.binarySearch(arr.slice(0, i), current)
+
+      while (j > newIndex) {
+        arr[j] = arr[j - 1]
+
+        j--
+      }
+
+      arr[newIndex] = current
+    }
+
+    return arr
+  }
 }

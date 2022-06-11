@@ -15,6 +15,25 @@ export class UtilsSorting implements IUtilsSorting {
     return [...arr].sort((a, b) => a - b)
   }
 
+  public binarySearch (sortedArr: number[], value: number): number {
+    let start = 0
+    let end = sortedArr.length - 1
+
+    while (start <= end) {
+      const medium = Math.floor((start + end) / 2)
+
+      if (value === sortedArr[medium]) return medium
+
+      if (value > sortedArr[medium]) {
+        start = medium + 1
+      } else {
+        end = medium - 1
+      }
+    }
+
+    return start
+  }
+
   public deepCopy<T = unknown> (obj: T): T {
     return JSON.parse(JSON.stringify(obj))
   }
