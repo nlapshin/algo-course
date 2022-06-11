@@ -1,6 +1,6 @@
 import Table from 'cli-table3'
 
-import { IReport, IReports } from './model'
+import { IReport, IReports, IReportSet } from './model'
 
 export class Reports implements IReports {
   private list: IReport[]
@@ -14,7 +14,7 @@ export class Reports implements IReports {
   }
 
   public showConsole () {
-    const sets = this.list[0].sets
+    const sets = this.findMaxSets()
 
     const table = new Table({
       head: ['', ...sets.map(set => set.name)]
@@ -31,5 +31,11 @@ export class Reports implements IReports {
     })
 
     console.log(table.toString())
+  }
+
+  private findMaxSets (): IReportSet[] {
+    return this.list.reduce((maxSets, item) => {
+      return item.sets.length > maxSets.length ? item.sets : maxSets
+    }, [] as IReportSet[])
   }
 }

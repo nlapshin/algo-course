@@ -15,12 +15,12 @@ const utils = new UtilsSorting()
 const reports = new Reports()
 const fixturesSource = generateFixtures([Math.pow(10, 2), Math.pow(10, 3), Math.pow(10, 4), Math.pow(10, 5), Math.pow(10, 6)])
 
-bubbleSimpleTest(utils.deepCopy(fixturesSource))
-bubbleOptimizeTest(utils.deepCopy(fixturesSource))
-insertionSimpleTest(utils.deepCopy(fixturesSource))
-insertionShiftTest(utils.deepCopy(fixturesSource))
-insertionShiftBinaryTest(utils.deepCopy(fixturesSource))
-shellSimpleTest(utils.deepCopy(fixturesSource))
+bubbleSimpleTest(utils.deepCopy(fixturesSource).slice(0, 4))
+bubbleOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 4))
+insertionSimpleTest(utils.deepCopy(fixturesSource).slice(0, 4))
+insertionShiftTest(utils.deepCopy(fixturesSource).slice(0, 4))
+insertionShiftBinaryTest(utils.deepCopy(fixturesSource).slice(0, 4))
+shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
 
 reports.showConsole()
 
