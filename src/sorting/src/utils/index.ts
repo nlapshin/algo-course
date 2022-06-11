@@ -15,6 +15,10 @@ export class UtilsSorting implements IUtilsSorting {
     return [...arr].sort((a, b) => a - b)
   }
 
+  public deepCopy<T = unknown> (obj: T): T {
+    return JSON.parse(JSON.stringify(obj))
+  }
+
   public swap (arr: number[], i: number, j: number): void {
     arr[i] = arr[i] ^ arr[j]
     arr[j] = arr[i] ^ arr[j]

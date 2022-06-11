@@ -1,6 +1,6 @@
 import { SortingFunc } from '../model'
 
-export interface IBubbleSorting {
+export interface IInsertionSorting {
   simple: SortingFunc
-  optimize: SortingFunc
+  shift: SortingFunc
 }

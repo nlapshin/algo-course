@@ -1,5 +1,6 @@
 import assert from 'assert'
 import { Tap } from './tap'
+import { UtilsSorting } from './utils'
 
 import { Reports } from './reports'
 import { IReport } from './reports/model'
@@ -7,18 +8,21 @@ import { IReport } from './reports/model'
 import { generateFixtures } from './fixtures'
 import { IFixture } from './fixtures/model'
 
-import { BubbleSorting, SortingFunc } from './'
+import { BubbleSorting, InsertionSorting, SortingFunc } from './'
 
 const tap = new Tap()
+const utils = new UtilsSorting()
 const reports = new Reports()
-const fixtures = generateFixtures([10, 100, 1000, 10000])
+const fixturesSource = generateFixtures([10, 100, 1000, 10000])
 
-bubbleSimpleTest()
-bubbleOptimizeTest()
+bubbleSimpleTest(utils.deepCopy(fixturesSource))
+bubbleOptimizeTest(utils.deepCopy(fixturesSource))
+insertionSimpleTest(utils.deepCopy(fixturesSource))
+insertionShiftTest(utils.deepCopy(fixturesSource))
 
 reports.showConsole()
 
-function bubbleSimpleTest () {
+function bubbleSimpleTest (fixtures: IFixture[]) {
   const bubbleSorting = new BubbleSorting()
 
   const name = 'bubble.simple'
@@ -27,11 +31,29 @@ function bubbleSimpleTest () {
   testWrap(name, fixtures, handler)
 }
 
-function bubbleOptimizeTest () {
+function bubbleOptimizeTest (fixtures: IFixture[]) {
   const bubbleSorting = new BubbleSorting()
 
   const name = 'bubble.optimize'
   const handler = bubbleSorting.optimize.bind(bubbleSorting)
+
+  testWrap(name, fixtures, handler)
+}
+
+function insertionSimpleTest (fixtures: IFixture[]) {
+  const insertionSorting = new InsertionSorting()
+
+  const name = 'insertion.simple'
+  const handler = insertionSorting.simple.bind(insertionSorting)
+
+  testWrap(name, fixtures, handler)
+}
+
+function insertionShiftTest (fixtures: IFixture[]) {
+  const insertionSorting = new InsertionSorting()
+
+  const name = 'insertion.shift'
+  const handler = insertionSorting.shift.bind(insertionSorting)
 
   testWrap(name, fixtures, handler)
 }
