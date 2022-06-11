@@ -11,9 +11,10 @@ import { BubbleSorting, SortingFunc } from './'
 
 const tap = new Tap()
 const reports = new Reports()
-const fixtures = generateFixtures([10, 100, 1000])
+const fixtures = generateFixtures([10, 100, 1000, 10000])
 
 bubbleSimpleTest()
+bubbleOptimizeTest()
 
 reports.showConsole()
 
@@ -22,6 +23,15 @@ function bubbleSimpleTest () {
 
   const name = 'bubble.simple'
   const handler = bubbleSorting.simple.bind(bubbleSorting)
+
+  testWrap(name, fixtures, handler)
+}
+
+function bubbleOptimizeTest () {
+  const bubbleSorting = new BubbleSorting()
+
+  const name = 'bubble.optimize'
+  const handler = bubbleSorting.optimize.bind(bubbleSorting)
 
   testWrap(name, fixtures, handler)
 }

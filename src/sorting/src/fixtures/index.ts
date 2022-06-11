@@ -7,7 +7,7 @@ export function generateFixtures (set = [10, 100, 1000, 10000]): IFixture[] {
   const fixtures = []
 
   for (const count of set) {
-    const input = utils.generateRandomArray(count)
+    const input = utils.generateRandomArray(count, 0, count)
     const expected = utils.sortArray(input)
 
     fixtures.push({ count, input, expected })
