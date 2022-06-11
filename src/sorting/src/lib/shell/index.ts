@@ -1,0 +1,29 @@
+import { UtilsSorting } from '../../utils'
+import { IUtilsSorting } from '../../utils/model'
+
+import { IShellSorting } from './model'
+
+export class ShellSorting implements IShellSorting {
+  private utils: IUtilsSorting = new UtilsSorting()
+
+  simple (arr: number[]): number[] {
+    const n = arr.length
+
+    for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2))	{
+      for (let i = gap; i < n; i++) {
+        const current = arr[i]
+        let j = i
+
+        while (j >= gap && current <= arr[j - gap]) {
+          arr[j] = arr[j - gap]
+
+          j = j - gap
+        }
+
+        arr[j] = current
+      }
+    }
+
+    return arr
+  }
+}

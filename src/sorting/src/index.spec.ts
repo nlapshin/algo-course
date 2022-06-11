@@ -8,18 +8,19 @@ import { IReport } from './reports/model'
 import { generateFixtures } from './fixtures'
 import { IFixture } from './fixtures/model'
 
-import { BubbleSorting, InsertionSorting, SortingFunc } from './'
+import { BubbleSorting, InsertionSorting, ShellSorting, SortingFunc } from './'
 
 const tap = new Tap()
 const utils = new UtilsSorting()
 const reports = new Reports()
-const fixturesSource = generateFixtures([10, 100, 1000])
+const fixturesSource = generateFixtures([Math.pow(10, 2), Math.pow(10, 3), Math.pow(10, 4), Math.pow(10, 5), Math.pow(10, 6)])
 
 bubbleSimpleTest(utils.deepCopy(fixturesSource))
 bubbleOptimizeTest(utils.deepCopy(fixturesSource))
 insertionSimpleTest(utils.deepCopy(fixturesSource))
 insertionShiftTest(utils.deepCopy(fixturesSource))
 insertionShiftBinaryTest(utils.deepCopy(fixturesSource))
+shellSimpleTest(utils.deepCopy(fixturesSource))
 
 reports.showConsole()
 
@@ -64,6 +65,15 @@ function insertionShiftBinaryTest (fixtures: IFixture[]) {
 
   const name = 'insertion.shiftBinary'
   const handler = insertionSorting.shiftBinary.bind(insertionSorting)
+
+  testWrap(name, fixtures, handler)
+}
+
+function shellSimpleTest (fixtures: IFixture[]) {
+  const shellSorting = new ShellSorting()
+
+  const name = 'shell.simple'
+  const handler = shellSorting.simple.bind(shellSorting)
 
   testWrap(name, fixtures, handler)
 }
