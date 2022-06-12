@@ -11,3 +11,6 @@ export * from './lib/shell/model'
 
 export * from './lib/selection'
 export * from './lib/selection/model'
+
+export * from './lib/heap'
+export * from './lib/heap/model'

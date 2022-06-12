@@ -58,6 +58,22 @@ export class UtilsSorting implements IUtilsSorting {
     return maxIndex
   }
 
+  public heapify (arr: number[], root: number, size: number) {
+    const l = 2 * root + 1
+    const r = 2 * root + 2
+    let x = root
+
+    if (l < size && arr[l] > arr[x]) x = l
+    if (r < size && arr[r] > arr[x]) x = r
+
+    if (x === root) {
+      return
+    }
+
+    this.swap(arr, x, root)
+    this.heapify(arr, x, size)
+  }
+
   public deepCopy<T = unknown> (obj: T): T {
     return JSON.parse(JSON.stringify(obj))
   }
