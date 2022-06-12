@@ -14,3 +14,6 @@ export * from './lib/selection/model'
 
 export * from './lib/heap'
 export * from './lib/heap/model'
+
+export * from './lib/quick'
+export * from './lib/quick/model'

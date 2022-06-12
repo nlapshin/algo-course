@@ -8,7 +8,7 @@ import { IReport } from './reports/model'
 import { generateFixtures } from './fixtures'
 import { IFixture } from './fixtures/model'
 
-import { BubbleSorting, InsertionSorting, ShellSorting, SelectionSorting, HeapSorting, SortingFunc } from './'
+import { BubbleSorting, InsertionSorting, ShellSorting, SelectionSorting, HeapSorting, QuickSorting, SortingFunc } from './'
 
 const tap = new Tap()
 const utils = new UtilsSorting()
@@ -23,6 +23,7 @@ insertionShiftBinaryTest(utils.deepCopy(fixturesSource).slice(0, 5))
 shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
 selectionByMinTest(utils.deepCopy(fixturesSource).slice(0, 5))
 heapSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+// quickSimpleTest(utils.deepCopy(fixturesSource).slice(0, 1))
 
 reports.showConsole()
 
@@ -94,6 +95,15 @@ function heapSimpleTest (fixtures: IFixture[]) {
 
   const name = 'heap.simple'
   const handler = heapSorting.simple.bind(heapSorting)
+
+  testWrap(name, fixtures, handler)
+}
+
+function quickSimpleTest (fixtures: IFixture[]) {
+  const quickSorting = new QuickSorting()
+
+  const name = 'quick.simple'
+  const handler = quickSorting.simple.bind(quickSorting)
 
   testWrap(name, fixtures, handler)
 }
