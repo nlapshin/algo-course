@@ -1,11 +1,6 @@
-import { UtilsSorting } from '../../utils'
-import { IUtilsSorting } from '../../utils/model'
-
 import { IShellSorting } from './model'
 
 export class ShellSorting implements IShellSorting {
-  private utils: IUtilsSorting = new UtilsSorting()
-
   simple (arr: number[]): number[] {
     const n = arr.length
 

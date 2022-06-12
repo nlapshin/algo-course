@@ -8,3 +8,6 @@ export * from './lib/insertion/model'
 
 export * from './lib/shell'
 export * from './lib/shell/model'
+
+export * from './lib/selection'
+export * from './lib/selection/model'

@@ -8,19 +8,20 @@ import { IReport } from './reports/model'
 import { generateFixtures } from './fixtures'
 import { IFixture } from './fixtures/model'
 
-import { BubbleSorting, InsertionSorting, ShellSorting, SortingFunc } from './'
+import { BubbleSorting, InsertionSorting, ShellSorting, SelectionSorting, SortingFunc } from './'
 
 const tap = new Tap()
 const utils = new UtilsSorting()
 const reports = new Reports()
-const fixturesSource = generateFixtures([Math.pow(10, 2), Math.pow(10, 3), Math.pow(10, 4), Math.pow(10, 5), Math.pow(10, 6)])
+const fixturesSource = generateFixtures([Math.pow(10, 1), Math.pow(10, 2), Math.pow(10, 3), Math.pow(10, 4), Math.pow(10, 5), Math.pow(10, 6)])
 
-bubbleSimpleTest(utils.deepCopy(fixturesSource).slice(0, 4))
-bubbleOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 4))
-insertionSimpleTest(utils.deepCopy(fixturesSource).slice(0, 4))
-insertionShiftTest(utils.deepCopy(fixturesSource).slice(0, 4))
-insertionShiftBinaryTest(utils.deepCopy(fixturesSource).slice(0, 4))
-shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
+bubbleSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
+bubbleOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 5))
+insertionSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
+insertionShiftTest(utils.deepCopy(fixturesSource).slice(0, 5))
+insertionShiftBinaryTest(utils.deepCopy(fixturesSource).slice(0, 5))
+shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+selectionByMinTest(utils.deepCopy(fixturesSource).slice(0, 5))
 
 reports.showConsole()
 
@@ -74,6 +75,24 @@ function shellSimpleTest (fixtures: IFixture[]) {
 
   const name = 'shell.simple'
   const handler = shellSorting.simple.bind(shellSorting)
+
+  testWrap(name, fixtures, handler)
+}
+
+function selectionByMinTest (fixtures: IFixture[]) {
+  const selectionSorting = new SelectionSorting()
+
+  const name = 'selection.byMin'
+  const handler = selectionSorting.byMin.bind(selectionSorting)
+
+  testWrap(name, fixtures, handler)
+}
+
+function selectionByMaxTest (fixtures: IFixture[]) {
+  const selectionSorting = new SelectionSorting()
+
+  const name = 'selection.byMax'
+  const handler = selectionSorting.byMax.bind(selectionSorting)
 
   testWrap(name, fixtures, handler)
 }

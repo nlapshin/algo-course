@@ -34,6 +34,30 @@ export class UtilsSorting implements IUtilsSorting {
     return start
   }
 
+  public findMinIndex (arr: number[], startIndex: number): number {
+    let minIndex = startIndex
+
+    for (let i = startIndex + 1; i < arr.length; i++) {
+      if (arr[i] < arr[minIndex]) {
+        minIndex = i
+      }
+    }
+
+    return minIndex
+  }
+
+  public findMaxIndex (arr: number[], size: number): number {
+    let maxIndex = 0
+
+    for (let i = 1; i < size; i++) {
+      if (arr[i] > arr[maxIndex]) {
+        maxIndex = i
+      }
+    }
+
+    return maxIndex
+  }
+
   public deepCopy<T = unknown> (obj: T): T {
     return JSON.parse(JSON.stringify(obj))
   }
