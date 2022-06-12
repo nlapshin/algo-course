@@ -1,6 +1,6 @@
 import { Tap } from '../../tap'
 
-import { IDynamicArray, SingleArray } from './array'
+import { IDynamicArray, SingleArray, VectorArray } from './array'
 
 const tap = new Tap()
 const count = 10000
@@ -8,6 +8,15 @@ const count = 10000
 tap.test('single.array.addStart', addStart(new SingleArray()), count)
 tap.test('single.array.addEnd', addEnd(new SingleArray()), count)
 tap.test('single.array.addMiddle', addMiddle(new SingleArray()), count)
+
+tap.test('single.array.removeStart', removeStart(new SingleArray(generateArr(count))), count)
+tap.test('single.array.removeEnd', removeEnd(new SingleArray(generateArr(count))), count)
+tap.test('single.array.removeMiddle', removeMiddle(new SingleArray(generateArr(count))), count)
+
+
+tap.test('vector.array.addStart', addStart(new VectorArray()), count)
+tap.test('vector.array.addEnd', addEnd(new VectorArray()), count)
+tap.test('vector.array.addMiddle', addMiddle(new VectorArray()), count)
 
 tap.test('single.array.removeStart', removeStart(new SingleArray(generateArr(count))), count)
 tap.test('single.array.removeEnd', removeEnd(new SingleArray(generateArr(count))), count)

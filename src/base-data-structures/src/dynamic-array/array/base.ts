@@ -7,6 +7,10 @@ export class BaseArray<T = number> implements IDynamicArray<T> {
     this.arr = initArr
   }
 
+  get(): T[] {
+    return this.arr
+  }
+
   size(): number {
     return this.arr.length
   }
