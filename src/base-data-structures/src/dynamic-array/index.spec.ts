@@ -1,6 +1,6 @@
 import { Tap } from '../../tap'
 
-import { IDynamicArray, SingleArray, VectorArray } from './array'
+import { IDynamicArray, SingleArray, VectorArray, FactorArray } from './array'
 
 const tap = new Tap()
 const count = 10000
@@ -13,14 +13,21 @@ tap.test('single.array.removeStart', removeStart(new SingleArray(generateArr(cou
 tap.test('single.array.removeEnd', removeEnd(new SingleArray(generateArr(count))), count)
 tap.test('single.array.removeMiddle', removeMiddle(new SingleArray(generateArr(count))), count)
 
-
 tap.test('vector.array.addStart', addStart(new VectorArray()), count)
 tap.test('vector.array.addEnd', addEnd(new VectorArray()), count)
 tap.test('vector.array.addMiddle', addMiddle(new VectorArray()), count)
 
-tap.test('single.array.removeStart', removeStart(new SingleArray(generateArr(count))), count)
-tap.test('single.array.removeEnd', removeEnd(new SingleArray(generateArr(count))), count)
-tap.test('single.array.removeMiddle', removeMiddle(new SingleArray(generateArr(count))), count)
+tap.test('vector.array.removeStart', removeStart(new SingleArray(generateArr(count))), count)
+tap.test('vector.array.removeEnd', removeEnd(new SingleArray(generateArr(count))), count)
+tap.test('vector.array.removeMiddle', removeMiddle(new SingleArray(generateArr(count))), count)
+
+tap.test('factor.array.addStart', addStart(new FactorArray()), count)
+tap.test('factor.array.addEnd', addEnd(new FactorArray()), count)
+tap.test('factor.array.addMiddle', addMiddle(new FactorArray()), count)
+
+// tap.test('factor.array.removeStart', removeStart(new FactorArray(generateArr(count))), count)
+// tap.test('factor.array.removeEnd', removeEnd(new FactorArray(generateArr(count))), count)
+// tap.test('factor.array.removeMiddle', removeMiddle(new FactorArray(generateArr(count))), count)
 
 function addStart(arr: IDynamicArray) {
   let item = 0
