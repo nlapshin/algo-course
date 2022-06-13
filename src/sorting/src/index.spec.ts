@@ -23,7 +23,7 @@ insertionShiftBinaryTest(utils.deepCopy(fixturesSource).slice(0, 5))
 shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
 selectionByMinTest(utils.deepCopy(fixturesSource).slice(0, 5))
 heapSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-// quickSimpleTest(utils.deepCopy(fixturesSource).slice(0, 1))
+quickSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
 
 reports.showConsole()
 

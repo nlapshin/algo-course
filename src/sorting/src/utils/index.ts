@@ -79,9 +79,9 @@ export class UtilsSorting implements IUtilsSorting {
   }
 
   public swap (arr: number[], i: number, j: number): void {
-    arr[i] = arr[i] ^ arr[j]
-    arr[j] = arr[i] ^ arr[j]
-    arr[i] = arr[i] ^ arr[j]
+    const tmp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = tmp
   }
 
   private getPseudoRandom (min: number, max: number): number {

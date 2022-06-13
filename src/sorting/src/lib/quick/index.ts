@@ -8,12 +8,34 @@ export class QuickSorting implements IQuickSorting {
 
   simple (arr: number[]): number[] {
     const n = arr.length
-    const pivot = n - 1
 
-    if (pivon > 1) { return arr }
+    this.simpleSort(arr, 0, n - 1)
+
+    return arr
   }
 
-  private simpleSort (l: number, r: number): void {
+  private simpleSort (arr: number[], l: number, r: number): void {
     if (l >= r) return
+
+    const pivot = this.simplePartition(arr, l, r)
+
+    this.simpleSort(arr, l, pivot - 1)
+    this.simpleSort(arr, pivot + 1, r)
+  }
+
+  private simplePartition (arr: number[], l: number, r: number): number {
+    const pivot = arr[r]
+    let i = l - 1
+
+    for (let j = l; j <= r - 1; j++) {
+      if (arr[j] <= pivot) {
+        i++
+        this.utils.swap(arr, j, i)
+      }
+    }
+
+    this.utils.swap(arr, i + 1, r)
+
+    return i + 1
   }
 }
