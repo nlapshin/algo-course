@@ -24,6 +24,7 @@ shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
 selectionByMinTest(utils.deepCopy(fixturesSource).slice(0, 5))
 heapSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
 quickSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+quickOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 6))
 
 reports.showConsole()
 
@@ -104,6 +105,15 @@ function quickSimpleTest (fixtures: IFixture[]) {
 
   const name = 'quick.simple'
   const handler = quickSorting.simple.bind(quickSorting)
+
+  testWrap(name, fixtures, handler)
+}
+
+function quickOptimizeTest (fixtures: IFixture[]) {
+  const quickSorting = new QuickSorting()
+
+  const name = 'quick.optimize'
+  const handler = quickSorting.optimize.bind(quickSorting)
 
   testWrap(name, fixtures, handler)
 }
