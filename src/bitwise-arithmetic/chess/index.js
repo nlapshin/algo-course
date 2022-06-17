@@ -1,14 +1,39 @@
+const Count = require('../count')
+
 class Chess {
   constructor() {
     this.max = 9223372036854775808n
     this.map = this.numbers()
+    this.count = new Count()
 
+    this.side = {
+      right: BigInt('0x7f7f7f7f7f7f7f7f'),
+      left: BigInt('0xfefefefefefefefe'),
+      max: BigInt('0xffffffffffffffff')
+    }
   }
 
   king(pos) {
-    const variants = [[0], [1.5], [3], [4.5], [6], [7.5], [9], [10.5]]
+    const number = this.numberByPos(pos)
 
-    return this.calculate(pos, variants)
+    const numberLeft = number & this.side.left
+    const numberRight = number & this.side.right
+
+    let mask = 
+        number << 8n // 0 
+      | numberRight << 9n // 1.5 
+      | numberRight << 1n // 3 
+      | numberRight >> 7n // 4.5 
+      | number >> 8n // 6 
+      | numberLeft >> 9n // 7.5 
+      | numberLeft >> 1n // 9 
+      | numberLeft << 7n // 10.5
+
+    mask = mask & this.side.max
+
+    const count = this.count.shiftBigInt(mask)
+
+    return { mask, count }
   }
 
   knight(pos) {
@@ -87,8 +112,6 @@ class Chess {
         }
       }
 
-      // this.showChessBox(newPos)
-
       count += newPos > 0n ? 1 : 0
       mask += newPos
     }
@@ -97,10 +120,10 @@ class Chess {
   }
 
   numberByPos(pos) {
-    return 1n << BigInt(pos)
+    return pos === 0n ? 1n : 1n << BigInt(pos)
   }
 
-  shift(clockPos, number) {
+  shift(number, clockPos) {
     const poses = {
       0: 8n, // left
       '1.5': 9n, // left

@@ -19,6 +19,20 @@ class Count {
     return count
   }
 
+  shiftBigInt(mask) {
+    let count = 0
+
+    while(mask) {
+      if ((mask & 1n) === 1n) {
+        count++
+      }
+
+      mask = mask >> 1n
+    }
+
+    return count
+  }
+
   shift255(mask) {
     let count = 0
 

@@ -17,3 +17,6 @@ export * from './lib/heap/model'
 
 export * from './lib/quick'
 export * from './lib/quick/model'
+
+export * from './lib/merge'
+export * from './lib/merge/model'
