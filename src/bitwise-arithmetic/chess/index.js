@@ -69,7 +69,7 @@ class Chess {
     const yCoef = BigInt(pos + 1) - xCoef * 8n - 1n
 
     const xPos = (255n << (8n * xCoef)) - number
-    const yPos = (BigInt('0x101010101010101') << yCoef) - number
+    const yPos = (BigInt('0x101010101010101') << yCoef) ^ number
 
     let mask = xPos | yPos
 
@@ -78,112 +78,44 @@ class Chess {
     return { mask, count }
   }
 
+
   bishop(pos) {
-    const variants = []
-    const directions = [1.5, 4.5, 7.5, 10.5]
+    const number = this.numberByPos(pos)
 
-    for (let i = 0; i < directions.length; i++) {
-      const moves = []
+    const leftInclineBase = BigInt('0x102040810204080')
+    const rightInclineBase = BigInt('0x8040201008040201')
 
-      for (let j = 0; j < 8; j++) {
-        moves.push(directions[i])
+    const yCoord = BigInt(Math.ceil((pos + 1) / 8))
+    const xCoord = BigInt(pos + 1) - (yCoord - 1n) * 8n
 
-        variants.push([...moves])
-      }
-    }
+    const sumCoord = xCoord + yCoord
+    const subCoord = yCoord - xCoord
 
-    return this.calculate(pos, variants)
+    const leftInclineShift = 8n * this.abs(sumCoord - 8n - 1n)
+    const leftIncline = sumCoord > 9n ? leftInclineBase << leftInclineShift : leftInclineBase >> leftInclineShift
+
+    const rightInclineShift = 8n * this.abs(subCoord)
+    const rightIncline = subCoord > 0n ? rightInclineBase << rightInclineShift : rightInclineBase >> rightInclineShift
+
+    const mask = ((rightIncline | leftIncline) ^ number) & this.side.max
+    const count = this.count.shiftBigInt(mask)
+
+    return { mask, count }
   }
 
   queen(pos) {
-    const variants = []
-    const directions = [0, 1.5, 3, 4.5, 6, 7.5, 9, 10.5]
+    const { mask: mask1, count: count1 } = this.rook(pos)
+    const { mask: mask2, count: count2 } = this.bishop(pos)
 
-    for (let i = 0; i < directions.length; i++) {
-      const moves = []
-
-      for (let j = 0; j < 8; j++) {
-        moves.push(directions[i])
-
-        variants.push([...moves])
-      }
-    }
-
-    return this.calculate(pos, variants)
+    return { mask: mask1 | mask2, count: count1 + count2 }
   }
 
-  calculate(pos, variants) {
-    let count = 0
-    let mask = 0n
-
-    const number = this.numberByPos(pos)
-
-    for (let i = 0; i < variants.length; i++) {
-      let newPos = number
-      const moves = variants[i]
-
-      for (let j = 0; j < moves.length; j++) {
-        const clockPos = moves[j]
-        newPos = this.shift(clockPos, newPos)
-
-        if (newPos === 0n) {
-          break
-        }
-      }
-
-      count += newPos > 0n ? 1 : 0
-      mask += newPos
-    }
-
-    return { count, mask }
+  abs(n) {
+    return n < 0n ? -n : n
   }
 
   numberByPos(pos) {
     return pos === 0n ? 1n : 1n << BigInt(pos)
-  }
-
-  shift(number, clockPos) {
-    const poses = {
-      0: 8n, // left
-      '1.5': 9n, // left
-      3: 1n, // left
-      '4.5': 7n, // rigth
-      6: 8n, // right
-      '7.5': 9n, // rigth
-      9: 1n, // rigth
-      '10.5': 7n, // left
-    }
-
-    let value = 0n
-    const shiftValue = poses[clockPos]
-
-    if (this.rightSide(number)) {
-      if (clockPos >= 1.5 && clockPos <= 4.5) {
-        return value
-      }
-    }
-
-    if (this.leftSide(number)) {
-      if (clockPos >= 7.5 && clockPos <= 10.5) {
-        return value
-      }
-    }
-
-    value = clockPos > 3 && clockPos <= 9 ? number >> shiftValue : number << shiftValue
-
-    if (value > this.max) {
-      return 0n
-    }
-
-    return value
-  }
-
-  leftSide(number) {
-    return ((this.map[number] - 1) % 8) === 0
-  }
-
-  rightSide(number) {
-    return (this.map[number] % 8) === 0
   }
 
   numbers() {
