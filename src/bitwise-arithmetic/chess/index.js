@@ -8,7 +8,9 @@ class Chess {
 
     this.side = {
       right: BigInt('0x7f7f7f7f7f7f7f7f'),
+      right2: BigInt('0x3f3f3f3f3f3f3f3f'),
       left: BigInt('0xfefefefefefefefe'),
+      left2: BigInt('0xfcfcfcfcfcfcfcfc'),
       max: BigInt('0xffffffffffffffff')
     }
   }
@@ -37,26 +39,43 @@ class Chess {
   }
 
   knight(pos) {
-    const variants = [[0, 0, 3], [3, 3, 0], [3, 3, 6], [6, 6, 3], [6, 6, 9], [9, 9, 6], [9, 9, 0], [0, 0, 9]]
+    const number = this.numberByPos(pos)
 
-    return this.calculate(pos, variants)
+    const numberLeft = number & this.side.left
+    const numberLeft2 = number & this.side.left2
+    const numberRight = number & this.side.right
+    const numberRight2 = number & this.side.right2
+
+    let mask =
+        numberRight << 8n << 8n << 1n // 0,0,3
+      | numberRight2 << 1n << 1n << 8n // 3,3,0
+      | numberRight2 << 1n << 1n >> 8n // 3,3,6
+      | numberRight >> 8n >> 8n << 1n // 6,6,3
+      | numberLeft >> 8n >> 8n >> 1n // 6,6,9
+      | numberLeft2 >> 1n >> 1n >> 8n // 9,9,6
+      | numberLeft2 >> 1n >> 1n << 8n // 9,9,0
+      | numberLeft << 8n << 8n >> 1n // 0,0,9
+
+    mask = mask & this.side.max
+  
+    const count = this.count.shiftBigInt(mask)
+
+    return { mask, count }
   }
 
   rook(pos) {
-    const variants = []
-    const directions = [0, 3, 6, 9]
+    const number = this.numberByPos(pos)
+    const xCoef = BigInt(Math.ceil((pos + 1) / 8) - 1)
+    const yCoef = BigInt(pos + 1) - xCoef * 8n - 1n
 
-    for (let i = 0; i < directions.length; i++) {
-      const moves = []
+    const xPos = (255n << (8n * xCoef)) - number
+    const yPos = (BigInt('0x101010101010101') << yCoef) - number
 
-      for (let j = 0; j < 8; j++) {
-        moves.push(directions[i])
+    let mask = xPos | yPos
 
-        variants.push([...moves])
-      }
-    }
+    const count = this.count.shiftBigInt(mask)
 
-    return this.calculate(pos, variants)
+    return { mask, count }
   }
 
   bishop(pos) {

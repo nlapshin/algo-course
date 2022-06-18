@@ -16,27 +16,27 @@ describe('chess.king', function() {
   })
 })
 
-// describe('chess.knight', function() {
-//   fixtures.knight.forEach(({pos, count, mask}) => {
-//     test(`pos = ${pos}, count = ${count}, mask = ${mask}`, () => {
-//       const result = chess.knight(pos)
+describe('chess.knight', function() {
+  fixtures.knight.forEach(({pos, count, mask}) => {
+    test(`pos = ${pos}, count = ${count}, mask = ${mask}`, () => {
+      const result = chess.knight(pos)
 
-//       assertEqualFixed(result.count, count)
-//       assertEqualFixed(result.mask, mask)
-//     })
-//   })
-// })
+      assertEqualFixed(result.count, count)
+      assertEqualFixed(result.mask, mask)
+    })
+  })
+})
 
-// describe('chess.rook', function() {
-//   fixtures.rook.forEach(({pos, count, mask}) => {
-//     test(`pos = ${pos}, count = ${count}, mask = ${mask}`, () => {
-//       const result = chess.rook(pos)
+describe('chess.rook', function() {
+  fixtures.rook.forEach(({pos, count, mask}) => {
+    test(`pos = ${pos}, count = ${count}, mask = ${mask}`, () => {
+      const result = chess.rook(pos)
 
-//       assertEqualFixed(result.count, count)
-//       assertEqualFixed(result.mask, mask)
-//     })
-//   })
-// })
+      assertEqualFixed(result.count, count)
+      assertEqualFixed(result.mask, mask)
+    })
+  })
+})
 
 // describe('chess.bishop', function() {
 //   fixtures.bishop.forEach(({pos, count, mask}) => {
