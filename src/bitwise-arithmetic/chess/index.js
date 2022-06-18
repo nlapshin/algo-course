@@ -2,7 +2,6 @@ const Count = require('../count')
 
 class Chess {
   constructor() {
-    this.max = 9223372036854775808n
     this.map = this.numbers()
     this.count = new Count()
 
@@ -68,7 +67,7 @@ class Chess {
     const xCoef = BigInt(Math.ceil((pos + 1) / 8) - 1)
     const yCoef = BigInt(pos + 1) - xCoef * 8n - 1n
 
-    const xPos = (255n << (8n * xCoef)) - number
+    const xPos = (255n << (8n * xCoef)) ^ number
     const yPos = (BigInt('0x101010101010101') << yCoef) ^ number
 
     let mask = xPos | yPos
