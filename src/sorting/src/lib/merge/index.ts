@@ -26,29 +26,40 @@ export class MergeSorting implements IMergeSorting {
   }
 
   merge (arr: number[], l: number, m: number, r: number) {
-    // console.log(arr, l, m, r)
-
     const n1 = m - l + 1
     const n2 = r - m
 
-    const arr1 = arr.slice(l, n1)
-    const arr2 = arr.slice(m, n2)
+    const L = []
+    const R = []
 
-    console.log(arr1, n1, arr2, n2)
+    for (let i = 0; i < n1; i++) { L.push(arr[l + i]) }
+    for (let j = 0; j < n2; j++) { R.push(arr[m + 1 + j]) }
 
-    // for (let i = 0; i)
+    let i = 0
+    let j = 0
+    let k = l
 
-    // console.log(n1, n2)
-    // const mergedArr: number[] = []
+    while (i < n1 && j < n2) {
+      if (L[i] <= R[j]) {
+        arr[k] = L[i]
+        i++
+      } else {
+        arr[k] = R[j]
+        j++
+      }
+      k++
+    }
 
-    // while (left.length && right.length) {
-    //   if (left[0] < right[0]) {
-    //     mergedArr.push(left.shift() as number)
-    //   } else {
-    //     mergedArr.push(right.shift() as number)
-    //   }
-    // }
+    while (i < n1) {
+      arr[k] = L[i]
+      i++
+      k++
+    }
 
-    // return [...mergedArr, ...left, ...right]
+    while (j < n2) {
+      arr[k] = R[j]
+      j++
+      k++
+    }
   }
 }

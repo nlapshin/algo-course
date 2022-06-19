@@ -22,13 +22,11 @@ bubbleSimpleTest(utils.deepCopy(fixtures.digits).slice(0, 6), 'digits')
 bubbleSimpleTest(utils.deepCopy(fixtures.sorted).slice(0, 6), 'sorted')
 bubbleSimpleTest(utils.deepCopy(fixtures.revers).slice(0, 6), 'revers')
 
-
 // bubble-optimize
 bubbleOptimizeTest(utils.deepCopy(fixtures.random).slice(0, 6), 'random')
 bubbleOptimizeTest(utils.deepCopy(fixtures.digits).slice(0, 6), 'digits')
 bubbleOptimizeTest(utils.deepCopy(fixtures.sorted).slice(0, 6), 'sorted')
 bubbleOptimizeTest(utils.deepCopy(fixtures.revers).slice(0, 6), 'revers')
-
 
 // insertion-simple
 insertionSimpleTest(utils.deepCopy(fixtures.random).slice(0, 6), 'random')
@@ -36,13 +34,11 @@ insertionSimpleTest(utils.deepCopy(fixtures.digits).slice(0, 6), 'digits')
 insertionSimpleTest(utils.deepCopy(fixtures.sorted).slice(0, 6), 'sorted')
 insertionSimpleTest(utils.deepCopy(fixtures.revers).slice(0, 6), 'revers')
 
-
 // insertion-shift
 insertionShiftTest(utils.deepCopy(fixtures.random).slice(0, 6), 'random')
 insertionShiftTest(utils.deepCopy(fixtures.digits).slice(0, 6), 'digits')
 insertionShiftTest(utils.deepCopy(fixtures.sorted).slice(0, 6), 'sorted')
 insertionShiftTest(utils.deepCopy(fixtures.revers).slice(0, 6), 'revers')
-
 
 // insertion-shift-binary
 insertionShiftBinaryTest(utils.deepCopy(fixtures.random).slice(0, 6), 'random')
@@ -80,8 +76,13 @@ quickOptimizeTest(utils.deepCopy(fixtures.digits).slice(0, 6), 'digits')
 quickOptimizeTest(utils.deepCopy(fixtures.sorted).slice(0, 8), 'sorted')
 quickOptimizeTest(utils.deepCopy(fixtures.revers).slice(0, 6), 'revers')
 
-reports.showConsole()
+// merge-simple
+mergeSimpleTest(utils.deepCopy(fixtures.random).slice(0, 8), 'random')
+mergeSimpleTest(utils.deepCopy(fixtures.digits).slice(0, 8), 'digits')
+mergeSimpleTest(utils.deepCopy(fixtures.sorted).slice(0, 8), 'sorted')
+mergeSimpleTest(utils.deepCopy(fixtures.revers).slice(0, 8), 'revers')
 
+reports.showConsole()
 
 function bubbleSimpleTest (fixtures: IFixture[], type: string) {
   const bubbleSorting = new BubbleSorting()
@@ -173,6 +174,14 @@ function quickOptimizeTest (fixtures: IFixture[], type: string) {
   testWrap(name, fixtures, handler)
 }
 
+function mergeSimpleTest (fixtures: IFixture[], type: string) {
+  const mergeSorting = new MergeSorting()
+
+  const name = `${type}.merge.simple`
+  const handler = mergeSorting.simple.bind(mergeSorting)
+
+  testWrap(name, fixtures, handler)
+}
 
 function testWrap (name: string, fixtures: IFixture[], handler: SortingFunc) {
   const report: IReport = { name, sets: [] }
