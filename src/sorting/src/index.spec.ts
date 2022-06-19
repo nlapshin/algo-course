@@ -15,16 +15,16 @@ const utils = new UtilsSorting()
 const reports = new Reports()
 const fixturesSource = generateFixtures([Math.pow(10, 1), Math.pow(10, 2), Math.pow(10, 3), Math.pow(10, 4), Math.pow(10, 5), Math.pow(10, 6)])
 
-// bubbleSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
-// bubbleOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 5))
-// insertionSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
-// insertionShiftTest(utils.deepCopy(fixturesSource).slice(0, 5))
-// insertionShiftBinaryTest(utils.deepCopy(fixturesSource).slice(0, 5))
-// shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-// selectionByMinTest(utils.deepCopy(fixturesSource).slice(0, 5))
-// heapSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-// quickSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-// quickOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 6))
+bubbleSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
+bubbleOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 5))
+insertionSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
+insertionShiftTest(utils.deepCopy(fixturesSource).slice(0, 5))
+insertionShiftBinaryTest(utils.deepCopy(fixturesSource).slice(0, 5))
+shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+selectionByMinTest(utils.deepCopy(fixturesSource).slice(0, 5))
+heapSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+quickSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+quickOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 6))
 mergeSimpleTest(utils.deepCopy(fixturesSource).slice(0, 1))
 
 reports.showConsole()
@@ -143,6 +143,6 @@ function testSorting (sortFunction: SortingFunc, fixture: IFixture) {
   return () => {
     const result = sortFunction(fixture.input)
 
-    // assert.deepEqual(result, fixture.expected)
+    assert.deepEqual(result, fixture.expected)
   }
 }
