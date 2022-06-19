@@ -1,3 +1,6 @@
+import * as fs from 'fs'
+import * as path from 'path'
+
 import { IUtilsSorting } from './model'
 
 export class UtilsSorting implements IUtilsSorting {
@@ -9,6 +12,18 @@ export class UtilsSorting implements IUtilsSorting {
     }
 
     return arr
+  }
+
+  public generateRandomFile (count = 10, max: number = count, pathname = __dirname): string {
+    const arr: number[] = this.generateRandomArray(count, 0, max)
+
+    const fileName = `${pathname}/test.${count}.${max}.in`
+
+    const numbers = arr.join('\r\n')
+
+    fs.writeFileSync(fileName, numbers)
+
+    return fileName
   }
 
   public sortArray (arr: number[]): number[] {
