@@ -8,7 +8,16 @@ import { IReport } from './reports/model'
 import { getSetFixtures } from './fixtures'
 import { IFixture } from './fixtures/model'
 
-import { BubbleSorting, InsertionSorting, ShellSorting, SelectionSorting, HeapSorting, QuickSorting, MergeSorting, SortingFunc } from './'
+import {
+  BubbleSorting,
+  InsertionSorting,
+  ShellSorting,
+  SelectionSorting,
+  HeapSorting,
+  QuickSorting,
+  MergeSorting,
+  SortingFunc
+} from './'
 
 const tap = new Tap()
 const utils = new UtilsSorting()
@@ -75,6 +84,24 @@ quickOptimizeTest(utils.deepCopy(fixtures.random).slice(0, 8), 'random')
 quickOptimizeTest(utils.deepCopy(fixtures.digits).slice(0, 6), 'digits')
 quickOptimizeTest(utils.deepCopy(fixtures.sorted).slice(0, 8), 'sorted')
 quickOptimizeTest(utils.deepCopy(fixtures.revers).slice(0, 6), 'revers')
+
+// merge-simple
+mergeSimpleTest(utils.deepCopy(fixtures.random).slice(0, 8), 'random')
+mergeSimpleTest(utils.deepCopy(fixtures.digits).slice(0, 8), 'digits')
+mergeSimpleTest(utils.deepCopy(fixtures.sorted).slice(0, 8), 'sorted')
+mergeSimpleTest(utils.deepCopy(fixtures.revers).slice(0, 8), 'revers')
+
+// merge-simple
+mergeSimpleTest(utils.deepCopy(fixtures.random).slice(0, 8), 'random')
+mergeSimpleTest(utils.deepCopy(fixtures.digits).slice(0, 8), 'digits')
+mergeSimpleTest(utils.deepCopy(fixtures.sorted).slice(0, 8), 'sorted')
+mergeSimpleTest(utils.deepCopy(fixtures.revers).slice(0, 8), 'revers')
+
+// merge-simple
+mergeSimpleTest(utils.deepCopy(fixtures.random).slice(0, 8), 'random')
+mergeSimpleTest(utils.deepCopy(fixtures.digits).slice(0, 8), 'digits')
+mergeSimpleTest(utils.deepCopy(fixtures.sorted).slice(0, 8), 'sorted')
+mergeSimpleTest(utils.deepCopy(fixtures.revers).slice(0, 8), 'revers')
 
 // merge-simple
 mergeSimpleTest(utils.deepCopy(fixtures.random).slice(0, 8), 'random')

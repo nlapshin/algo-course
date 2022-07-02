@@ -34,25 +34,26 @@ const fixturesSource = generateFixtures([
   Math.pow(10, 3),
   Math.pow(10, 4),
   Math.pow(10, 5),
-  Math.pow(10, 6)
-  // Math.pow(10, 7)
+  Math.pow(10, 6),
+  Math.pow(10, 7)
   // Math.pow(10, 8)
+  // Math.pow(10, 9)
 ], max)
 
-bubbleSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
-bubbleOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 5))
-insertionSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
-insertionShiftTest(utils.deepCopy(fixturesSource).slice(0, 5))
-insertionShiftBinaryTest(utils.deepCopy(fixturesSource).slice(0, 5))
-shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-selectionByMinTest(utils.deepCopy(fixturesSource).slice(0, 5))
-heapSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-quickSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-quickOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 6))
-mergeSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-bucketSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-countingSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-radixSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+bubbleSimpleTest(sliceFixtures(fixturesSource, 5))
+bubbleOptimizeTest(sliceFixtures(fixturesSource, 5))
+insertionSimpleTest(sliceFixtures(fixturesSource, 5))
+insertionShiftTest(sliceFixtures(fixturesSource, 5))
+insertionShiftBinaryTest(sliceFixtures(fixturesSource, 5))
+shellSimpleTest(sliceFixtures(fixturesSource, 6))
+selectionByMinTest(sliceFixtures(fixturesSource, 5))
+heapSimpleTest(sliceFixtures(fixturesSource, 6))
+quickSimpleTest(sliceFixtures(fixturesSource, 6))
+quickOptimizeTest(sliceFixtures(fixturesSource, 6))
+mergeSimpleTest(sliceFixtures(fixturesSource, 6))
+bucketSimpleTest(sliceFixtures(fixturesSource, 7))
+countingSimpleTest(sliceFixtures(fixturesSource, 7))
+radixSimpleTest(sliceFixtures(fixturesSource, 7))
 
 reports.showConsole()
 
@@ -218,4 +219,13 @@ function testSortingMax (sortFunction: SortingWithMaxFunc, fixture: IFixture) {
 
     assert.deepEqual(result, fixture.expected)
   }
+}
+
+function sliceFixtures (fixtures: IFixture[], count: number) {
+  return fixtures.slice(0, count).map(fixture => {
+    return {
+      ...fixture,
+      input: [...fixture.input]
+    }
+  })
 }

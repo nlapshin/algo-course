@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx ts-node ./src/*.spec.ts",
-    "test": "npx ts-node ./src/*.spec.ts",
+    "start": "NODE_OPTIONS=--max_old_space_size=8096 npx ts-node ./src/*.spec.ts",
+    "test": "NODE_OPTIONS=--max_old_space_size=8096 npx ts-node ./src/*.spec.ts",
     "lint": "npx eslint ./src",
     "lint:fix": "npx eslint --fix ./src"
   },

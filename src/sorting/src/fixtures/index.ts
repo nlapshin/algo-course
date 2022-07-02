@@ -4,9 +4,11 @@ import * as path from 'path'
 import { UtilsSorting } from '../utils'
 import { IFixture, ISetFixtures } from './model'
 
+import process from 'process'
+
 const utils = new UtilsSorting()
 
-export function generateFixtures (set = [10, 100, 1000, 10000], max?: number): IFixture[] {
+export function generateFixtures (set = [10, 100, 1000, 10000], max?: number): any {
   const fixtures = []
 
   for (const count of set) {
