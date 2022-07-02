@@ -6,11 +6,11 @@ import { IFixture, ISetFixtures } from './model'
 
 const utils = new UtilsSorting()
 
-export function generateFixtures (set = [10, 100, 1000, 10000]): IFixture[] {
+export function generateFixtures (set = [10, 100, 1000, 10000], max?: number): IFixture[] {
   const fixtures = []
 
   for (const count of set) {
-    const input = utils.generateRandomArray(count, 0, count)
+    const input = utils.generateRandomArray(count, 0, max || count)
     const expected = utils.sortArray(input)
 
     fixtures.push({ count, input, expected })
@@ -31,21 +31,21 @@ export function getSetFixtures (): ISetFixtures {
 function getSetFixture (name: string): IFixture[] {
   const fixtures: IFixture[] = []
 
-  for (let i = 0; i < 8 ; i++) {
+  for (let i = 0; i < 8; i++) {
     const input = readStringFromFile(`./data/${name}/test.${i}.in`)
     const output = readStringFromFile(`./data/${name}/test.${i}.out`)
 
-    const [ count, inputStr ] = input.split('\r\n')
+    const [count, inputStr] = input.split('\r\n')
 
     const inputArr = inputStr.split(' ').map(v => +v)
     const outputArr = output.split(' ').map(v => +v)
-  
+
     fixtures.push({ count: +count, input: inputArr, expected: outputArr })
   }
 
   return fixtures
 }
 
-function readStringFromFile(filePath: string) {
+function readStringFromFile (filePath: string) {
   return fs.readFileSync(path.resolve(__dirname, filePath)).toString().trim()
 }

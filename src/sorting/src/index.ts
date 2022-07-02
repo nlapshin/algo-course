@@ -20,3 +20,12 @@ export * from './lib/quick/model'
 
 export * from './lib/merge'
 export * from './lib/merge/model'
+
+export * from './lib/bucket'
+export * from './lib/bucket/model'
+
+export * from './lib/counting'
+export * from './lib/counting/model'
+
+export * from './lib/radix'
+export * from './lib/radix/model'

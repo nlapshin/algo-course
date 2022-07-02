@@ -8,24 +8,51 @@ import { IReport } from './reports/model'
 import { generateFixtures } from './fixtures'
 import { IFixture } from './fixtures/model'
 
-import { BubbleSorting, InsertionSorting, ShellSorting, SelectionSorting, HeapSorting, QuickSorting, MergeSorting, SortingFunc } from './'
+import {
+  BubbleSorting,
+  InsertionSorting,
+  ShellSorting,
+  SelectionSorting,
+  HeapSorting,
+  QuickSorting,
+  MergeSorting,
+  BucketSorting,
+  CountingSorting,
+  RadixSorting,
+  SortingFunc,
+  SortingWithMaxFunc
+} from './'
+
+const max = 65536
 
 const tap = new Tap()
 const utils = new UtilsSorting()
 const reports = new Reports()
-const fixturesSource = generateFixtures([Math.pow(10, 1), Math.pow(10, 2), Math.pow(10, 3), Math.pow(10, 4), Math.pow(10, 5), Math.pow(10, 6)])
+const fixturesSource = generateFixtures([
+  Math.pow(10, 1),
+  Math.pow(10, 2),
+  Math.pow(10, 3),
+  Math.pow(10, 4),
+  Math.pow(10, 5),
+  Math.pow(10, 6)
+  // Math.pow(10, 7)
+  // Math.pow(10, 8)
+], max)
 
-bubbleSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
-bubbleOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 5))
-insertionSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
-insertionShiftTest(utils.deepCopy(fixturesSource).slice(0, 5))
-insertionShiftBinaryTest(utils.deepCopy(fixturesSource).slice(0, 5))
-shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-selectionByMinTest(utils.deepCopy(fixturesSource).slice(0, 5))
-heapSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-quickSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-quickOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 6))
-mergeSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+// bubbleSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
+// bubbleOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 5))
+// insertionSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
+// insertionShiftTest(utils.deepCopy(fixturesSource).slice(0, 5))
+// insertionShiftBinaryTest(utils.deepCopy(fixturesSource).slice(0, 5))
+// shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+// selectionByMinTest(utils.deepCopy(fixturesSource).slice(0, 5))
+// heapSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+// quickSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+// quickOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 6))
+// mergeSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+// bucketSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+// countingSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+radixSimpleTest(utils.deepCopy(fixturesSource).slice(0, 1))
 
 reports.showConsole()
 
@@ -128,6 +155,33 @@ function mergeSimpleTest (fixtures: IFixture[]) {
   testWrap(name, fixtures, handler)
 }
 
+function bucketSimpleTest (fixtures: IFixture[]) {
+  const bucketSorting = new BucketSorting()
+
+  const name = 'bucket.simple'
+  const handler = bucketSorting.simple.bind(bucketSorting)
+
+  testMaxWrap(name, fixtures, handler)
+}
+
+function countingSimpleTest (fixtures: IFixture[]) {
+  const countingSorting = new CountingSorting()
+
+  const name = 'counting.simple'
+  const handler = countingSorting.simple.bind(countingSorting)
+
+  testMaxWrap(name, fixtures, handler)
+}
+
+function radixSimpleTest (fixtures: IFixture[]) {
+  const radixSorting = new RadixSorting()
+
+  const name = 'radix.simple'
+  const handler = radixSorting.simple.bind(radixSorting)
+
+  testMaxWrap(name, fixtures, handler)
+}
+
 function testWrap (name: string, fixtures: IFixture[], handler: SortingFunc) {
   const report: IReport = { name, sets: [] }
 
@@ -144,5 +198,24 @@ function testSorting (sortFunction: SortingFunc, fixture: IFixture) {
     const result = sortFunction(fixture.input)
 
     assert.deepEqual(result, fixture.expected)
+  }
+}
+
+function testMaxWrap (name: string, fixtures: IFixture[], handler: SortingWithMaxFunc) {
+  const report: IReport = { name, sets: [] }
+
+  for (const fixture of fixtures) {
+    const duration = tap.test(`${name}.${fixture.count}`, testSortingMax(handler, fixture), 1)
+    report.sets.push({ duration, name: fixture.count.toString() })
+  }
+
+  reports.add(report)
+}
+
+function testSortingMax (sortFunction: SortingWithMaxFunc, fixture: IFixture) {
+  return () => {
+    const result = sortFunction(fixture.input, max)
+
+    // assert.deepEqual(result, fixture.expected)
   }
 }
