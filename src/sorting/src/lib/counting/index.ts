@@ -1,9 +1,6 @@
-// import { InsertionSorting } from '../insertion'
 import { ICountingSorting } from './model'
 
 export class CountingSorting implements ICountingSorting {
-  // private insertionSort = new InsertionSorting()
-
   simple (arr: number[], max: number): number[] {
     const count = Array.from({ length: max }, (_, i) => 0)
 

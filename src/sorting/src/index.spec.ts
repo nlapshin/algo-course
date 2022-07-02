@@ -39,20 +39,20 @@ const fixturesSource = generateFixtures([
   // Math.pow(10, 8)
 ], max)
 
-// bubbleSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
-// bubbleOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 5))
-// insertionSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
-// insertionShiftTest(utils.deepCopy(fixturesSource).slice(0, 5))
-// insertionShiftBinaryTest(utils.deepCopy(fixturesSource).slice(0, 5))
-// shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-// selectionByMinTest(utils.deepCopy(fixturesSource).slice(0, 5))
-// heapSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-// quickSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-// quickOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 6))
-// mergeSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-// bucketSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-// countingSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
-radixSimpleTest(utils.deepCopy(fixturesSource).slice(0, 1))
+bubbleSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
+bubbleOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 5))
+insertionSimpleTest(utils.deepCopy(fixturesSource).slice(0, 5))
+insertionShiftTest(utils.deepCopy(fixturesSource).slice(0, 5))
+insertionShiftBinaryTest(utils.deepCopy(fixturesSource).slice(0, 5))
+shellSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+selectionByMinTest(utils.deepCopy(fixturesSource).slice(0, 5))
+heapSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+quickSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+quickOptimizeTest(utils.deepCopy(fixturesSource).slice(0, 6))
+mergeSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+bucketSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+countingSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
+radixSimpleTest(utils.deepCopy(fixturesSource).slice(0, 6))
 
 reports.showConsole()
 
@@ -216,6 +216,6 @@ function testSortingMax (sortFunction: SortingWithMaxFunc, fixture: IFixture) {
   return () => {
     const result = sortFunction(fixture.input, max)
 
-    // assert.deepEqual(result, fixture.expected)
+    assert.deepEqual(result, fixture.expected)
   }
 }
