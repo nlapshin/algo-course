@@ -12,9 +12,7 @@ export class SelectionSorting implements ISelectionSorting {
     for (let i = 0; i < n; i++) {
       const min = this.utils.findMinIndex(arr, i)
 
-      if (min !== i) {
-        this.utils.swap(arr, i, min)
-      }
+      this.utils.swap(arr, i, min)
     }
 
     return arr
@@ -26,9 +24,7 @@ export class SelectionSorting implements ISelectionSorting {
     for (let i = n - 1; i > 0; i--) {
       const max = this.utils.findMaxIndex(arr, i)
 
-      if (max !== i) {
-        this.utils.swap(arr, i, max)
-      }
+      this.utils.swap(arr, i, max)
     }
 
     return arr

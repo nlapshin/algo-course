@@ -35,10 +35,16 @@ export class UtilsSorting implements IUtilsSorting {
     let start = 0
     let end = sortedArr.length - 1
 
+    let index = -1
+
     while (start <= end) {
       const medium = Math.floor((start + end) / 2)
 
-      if (value === sortedArr[medium]) return medium
+      if (value === sortedArr[medium]) {
+        index = medium
+
+        break;
+      }
 
       if (value > sortedArr[medium]) {
         start = medium + 1
@@ -47,7 +53,7 @@ export class UtilsSorting implements IUtilsSorting {
       }
     }
 
-    return start
+    return index >= 0 ? index: start
   }
 
   public findMinIndex (arr: number[], startIndex: number): number {
