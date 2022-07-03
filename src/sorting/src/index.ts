@@ -29,3 +29,6 @@ export * from './lib/counting/model'
 
 export * from './lib/radix'
 export * from './lib/radix/model'
+
+export * from './lib/external'
+export * from './lib/external/model'

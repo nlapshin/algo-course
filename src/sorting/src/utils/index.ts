@@ -1,5 +1,5 @@
 import * as fs from 'fs'
-import * as path from 'path'
+import fse from 'fs-extra'
 
 import { IUtilsSorting } from './model'
 
@@ -21,6 +21,7 @@ export class UtilsSorting implements IUtilsSorting {
 
     const numbers = arr.join('\r\n')
 
+    fse.ensureDirSync(pathname)
     fs.writeFileSync(fileName, numbers)
 
     return fileName
