@@ -1,9 +1,50 @@
-export class BSTNode {
-  private left: BSTNode | null = null;
-  private right: BSTNode | null = null;
+export class BinaryTreeNode {
+  public left: BinaryTreeNode | null = null;
+  public right: BinaryTreeNode | null = null;
+  public parent: BinaryTreeNode | null = null;
 
-  constructor (private readonly value: number) {
+  constructor (private readonly value: number) {}
 
+  public get height (): number {
+    return Math.max(this.leftSubtreeHeight, this.rightSubtreeHeight);
+  }
+
+  public get leftSubtreeHeight (): number {
+    return this.left ? this.left.height + 1 : 0;
+  }
+
+  public get rightSubtreeHeight (): number {
+    return this.right ? this.right.height + 1 : 0;
+  }
+
+  public get balanceFactor (): number {
+    return this.leftSubtreeHeight - this.rightSubtreeHeight;
+  }
+
+  public get sideRelativeToParent (): 'left' | 'right' | null {
+    if (!this.parent) {
+      return null;
+    }
+
+    return this.parent.right === this ? 'right' : 'left';
+  }
+
+  public makeNode (value: number): BinaryTreeNode {
+    return new BinaryTreeNode(value);
+  }
+
+  public find (value: number): BinaryTreeNode | null {
+    const compareRes = this.compare(value);
+
+    if (compareRes === 0) {
+      return this;
+    }
+
+    if (compareRes === -1) {
+      return this.left ? this.left.find(value) : null;
+    } else {
+      return this.right ? this.right.find(value) : null;
+    }
   }
 
   public hasValue (value: number): boolean {
@@ -40,33 +81,41 @@ export class BSTNode {
     return arr;
   }
 
-  public insertAt (value: number): void {
+  public insertAt (value: number, parent: BinaryTreeNode): BinaryTreeNode | null {
     const compareRes = this.compare(value);
 
     if (compareRes === 0) {
-      return;
+      return null;
     }
 
     if (compareRes === -1) {
       if (this.left !== null) {
-        this.left.insertAt(value);
+        this.left.insertAt(value, this);
       } else {
-        this.left = new BSTNode(value);
+        this.left = this.makeNode(value);
       }
 
-      return;
+      this.parent = parent;
+
+      return this.left;
     }
 
     if (compareRes === 1) {
       if (this.right !== null) {
-        this.right.insertAt(value);
+        this.right.insertAt(value, this);
       } else {
-        this.right = new BSTNode(value);
+        this.right = this.makeNode(value);
       }
+
+      this.parent = parent;
+
+      return this.right;
     }
+
+    return null;
   }
 
-  public remove (value: number): BSTNode | null {
+  public remove (value: number): BinaryTreeNode | null {
     const compareRes = this.compare(value);
 
     if (compareRes === 0) {
@@ -110,11 +159,11 @@ export class BSTNode {
     return this;
   }
 
-  public getDeepestLeftLeaf (): BSTNode | null {
+  public getDeepestLeftLeaf (): BinaryTreeNode | null {
     return this.left ? this.left?.getDeepestLeftLeaf() : this;
   }
 
-  public getDeepestRightLeaf (): BSTNode | null {
+  public getDeepestRightLeaf (): BinaryTreeNode | null {
     return this.right ? this.right?.getDeepestRightLeaf() : this;
   }
 

@@ -1,17 +1,20 @@
 import assert from 'assert';
-import { Tap } from '../../tap';
-import { Duration } from '../../duration';
-import { Reports } from '../../reports';
-import { IReport } from '../../reports/model';
-import { Utils } from '../utils';
-import { BST } from './';
-import { IBST } from './model';
+import { Tap } from './lib/tap';
+import { Duration } from './lib/duration';
+import { Reports } from './lib/reports';
+import { Utils } from './utils';
+import { BST } from './bst';
+import { IBST } from './bst/model';
+
+import { AVL } from './avl';
 
 const tap = new Tap();
 const reports = new Reports();
 const utils = new Utils();
 const bstRandom = new BST();
 const bstSort = new BST();
+
+const avlRandom = new AVL();
 
 const values = utils.generateRandomUniqArray(1000, 0, 10000);
 const valuesSort = [...values].sort((a, b) => a - b);

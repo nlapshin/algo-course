@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx ts-node ./src/**/*.spec.ts",
+    "test": "npx ts-node ./src/index.spec.ts",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix"
   },
