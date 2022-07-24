@@ -7,12 +7,12 @@ export class AVL extends BST implements IAVL {
   insert (value: number): BinaryTreeNode | null {
     const node = super.insert(value);
 
-    this.rebalance(node);
+    this.root = this.rebalance(node);
 
     return node;
   }
 
-  remove (value: number): BinaryTreeNode | null {
+  remove (value: number): boolean {
     const node = this.find(value);
 
     if (node) {
@@ -23,7 +23,7 @@ export class AVL extends BST implements IAVL {
       return found;
     }
 
-    return null;
+    return false;
   }
 
   public rebalance (node: BinaryTreeNode | null): BinaryTreeNode | null {
@@ -63,17 +63,12 @@ export class AVL extends BST implements IAVL {
 
     const newParent = node.right;
     const grandparent = node.parent;
+    const previousLeft = newParent.left;
 
-    const side = node.sideRelativeToParent;
+    this.swapParentChild(node, newParent, grandparent);
 
-    if (grandparent && side) {
-      grandparent[side] = newParent;
-    } else {
-      newParent.parent = null;
-    }
-
-    newParent.left = node;
-    node.right = null;
+    newParent.setLeftAndUpdateParent(node);
+    node.setRightAndUpdateParent(previousLeft);
 
     return newParent;
   }
@@ -85,17 +80,12 @@ export class AVL extends BST implements IAVL {
 
     const newParent = node.left;
     const grandparent = node.parent;
+    const previousRight = newParent.right;
 
-    const side = node.sideRelativeToParent;
+    this.swapParentChild(node, newParent, grandparent);
 
-    if (grandparent && side) {
-      grandparent[side] = newParent;
-    } else {
-      newParent.parent = null;
-    }
-
-    newParent.right = node;
-    node.left = null;
+    newParent.setRightAndUpdateParent(node);
+    node.setLeftAndUpdateParent(previousRight);
 
     return newParent;
   }
@@ -116,5 +106,15 @@ export class AVL extends BST implements IAVL {
 
     this.rightRotation(node.right);
     return this.leftRotation(node);
+  }
+
+  private swapParentChild (oldChild: BinaryTreeNode, newChild: BinaryTreeNode, parent: BinaryTreeNode | null): void {
+    if (parent) {
+      const side = oldChild.isParentRightChild ? 'Right' : 'Left';
+
+      parent[`set${side}AndUpdateParent`](newChild);
+    } else {
+      newChild.parent = null;
+    }
   }
 }

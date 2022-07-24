@@ -2,6 +2,7 @@ export class BinaryTreeNode {
   public left: BinaryTreeNode | null = null;
   public right: BinaryTreeNode | null = null;
   public parent: BinaryTreeNode | null = null;
+  public parentSide: 'left' | 'right' | null = null;
 
   constructor (public readonly value: number) {}
 
@@ -21,12 +22,32 @@ export class BinaryTreeNode {
     return this.leftSubtreeHeight - this.rightSubtreeHeight;
   }
 
-  public get sideRelativeToParent (): 'left' | 'right' | null {
-    if (!this.parent) {
-      return null;
-    }
+  public get sideRelativeToParent (): 'left' | 'right' {
+    return this.parentSide === 'right' ? 'right' : 'left';
+  }
 
-    return this.parent.right === this ? 'right' : 'left';
+  public get isParentRightChild (): boolean {
+    return this.parentSide === 'right';
+  }
+
+  public get isParentLeftChild (): boolean {
+    return this.parentSide === 'left';
+  }
+
+  public setLeftAndUpdateParent (node: BinaryTreeNode | null): void {
+    this.left = node;
+    if (node) {
+      node.parent = this;
+      node.parentSide = 'left';
+    }
+  }
+
+  public setRightAndUpdateParent (node: BinaryTreeNode | null): void {
+    this.right = node;
+    if (node) {
+      node.parent = this;
+      node.parentSide = 'right';
+    }
   }
 
   public makeNode (value: number): BinaryTreeNode {
@@ -94,6 +115,7 @@ export class BinaryTreeNode {
       } else {
         this.left = this.makeNode(value);
         this.left.parent = parent;
+        this.left.parentSide = 'left';
       }
 
       return this.left;
@@ -105,6 +127,7 @@ export class BinaryTreeNode {
       } else {
         this.right = this.makeNode(value);
         this.right.parent = parent;
+        this.right.parentSide = 'right';
       }
 
       return this.right;
@@ -122,10 +145,16 @@ export class BinaryTreeNode {
       }
 
       if (this.left && !this.right) {
+        this.left.parent = this.parent;
+        this.left.parentSide = 'left';
+
         return this.left;
       }
 
       if (!this.left && this.right) {
+        this.right.parent = this.parent;
+        this.right.parentSide = 'right';
+
         return this.right;
       }
 
@@ -134,6 +163,8 @@ export class BinaryTreeNode {
 
         if (newValue) {
           newValue.right = this.right;
+          newValue.parent = this.parent;
+          newValue.parentSide = 'left';
 
           return newValue;
         }
@@ -142,6 +173,8 @@ export class BinaryTreeNode {
 
         if (newValue) {
           newValue.left = this.left;
+          newValue.parent = this.parent;
+          newValue.parentSide = 'right';
 
           return newValue;
         }

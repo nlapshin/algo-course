@@ -7,6 +7,7 @@ import { BST } from './bst';
 import { IBST } from './bst/model';
 
 import { AVL } from './avl';
+import { IAVL } from './avl/model';
 
 const tap = new Tap();
 const reports = new Reports();
@@ -29,13 +30,13 @@ for (const value of valuesSort) {
   bstSort.insert(value);
 }
 
-// for (const value of values) {
-//   avlRandom.insert(value);
-// }
+for (const value of values) {
+  avlRandom.insert(value);
+}
 
-// for (const value of valuesSort) {
-//   avlSort.insert(value);
-// }
+for (const value of valuesSort) {
+  avlSort.insert(value);
+}
 
 searching('searching.bstRandom', bstRandom, valuesShuffle);
 searching('searching.bstSort', bstSort, valuesShuffle);
@@ -43,15 +44,21 @@ searching('searching.bstSort', bstSort, valuesShuffle);
 removing('removing.bstRandom', bstRandom, valuesShuffle);
 removing('removing.bstSort', bstSort, valuesShuffle);
 
+searching('searching.avlRandom', avlRandom, valuesShuffle);
+searching('searching.avlSort', avlSort, valuesShuffle);
+
+removing('removing.avlRandom', avlRandom, valuesShuffle);
+removing('removing.avlSort', avlSort, valuesShuffle);
+
 reports.showConsole();
 
-function searching (name: string, bst: IBST, values: number[]): void {
+function searching (name: string, tree: IBST | IAVL, values: number[]): void {
   const duration = new Duration();
 
   duration.start();
 
   for (const value of values) {
-    const res = bst.search(value);
+    const res = tree.search(value);
 
     assert.equal(res, true);
   }
@@ -61,13 +68,13 @@ function searching (name: string, bst: IBST, values: number[]): void {
   reports.addToSet({ name: 'searching', sets: [{ duration: duration.duration(), name }] });
 }
 
-function removing (name: string, bst: IBST, values: number[]): void {
+function removing (name: string, tree: IBST | IAVL, values: number[]): void {
   const duration = new Duration();
 
   duration.start();
 
   for (const value of values) {
-    bst.remove(value);
+    tree.remove(value);
   }
 
   duration.end();
