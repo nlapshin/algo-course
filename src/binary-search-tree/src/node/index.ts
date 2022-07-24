@@ -3,7 +3,7 @@ export class BinaryTreeNode {
   public right: BinaryTreeNode | null = null;
   public parent: BinaryTreeNode | null = null;
 
-  constructor (private readonly value: number) {}
+  constructor (public readonly value: number) {}
 
   public get height (): number {
     return Math.max(this.leftSubtreeHeight, this.rightSubtreeHeight);
@@ -90,24 +90,22 @@ export class BinaryTreeNode {
 
     if (compareRes === -1) {
       if (this.left !== null) {
-        this.left.insertAt(value, this);
+        this.left.insertAt(value, this.left);
       } else {
         this.left = this.makeNode(value);
+        this.left.parent = parent;
       }
-
-      this.parent = parent;
 
       return this.left;
     }
 
     if (compareRes === 1) {
       if (this.right !== null) {
-        this.right.insertAt(value, this);
+        this.right.insertAt(value, this.right);
       } else {
         this.right = this.makeNode(value);
+        this.right.parent = parent;
       }
-
-      this.parent = parent;
 
       return this.right;
     }

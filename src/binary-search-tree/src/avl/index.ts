@@ -32,7 +32,6 @@ export class AVL extends BST implements IAVL {
 
     while (current) {
       newParent = this.balance(current);
-      // console.log(newParent);
       current = current.parent;
     }
 

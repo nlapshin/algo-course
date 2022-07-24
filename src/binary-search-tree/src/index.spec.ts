@@ -15,6 +15,7 @@ const bstRandom = new BST();
 const bstSort = new BST();
 
 const avlRandom = new AVL();
+const avlSort = new AVL();
 
 const values = utils.generateRandomUniqArray(1000, 0, 10000);
 const valuesSort = [...values].sort((a, b) => a - b);
@@ -27,6 +28,14 @@ for (const value of values) {
 for (const value of valuesSort) {
   bstSort.insert(value);
 }
+
+// for (const value of values) {
+//   avlRandom.insert(value);
+// }
+
+// for (const value of valuesSort) {
+//   avlSort.insert(value);
+// }
 
 searching('searching.bstRandom', bstRandom, valuesShuffle);
 searching('searching.bstSort', bstSort, valuesShuffle);
