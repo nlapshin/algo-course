@@ -21,4 +21,11 @@ export class HashTableLinkedList extends HashTableBase implements IHashTable {
 
     return node?.data || null
   }
+
+  public delete (key: string): string | null {
+    const hashKey = this.hash(key)
+    const node = this.list[hashKey] ? this.list[hashKey].delete(key) : null
+
+    return node?.data || null
+  }
 }

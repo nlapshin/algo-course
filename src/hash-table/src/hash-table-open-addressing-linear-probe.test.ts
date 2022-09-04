@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import { HashTableLinkedList } from './hash-table-linked-list'
+import { HashTableOpenAddressingLinearProbe } from './hash-table-open-addressing-linear-probe'
 
-describe('HashTableLinkedList', () => {
+describe('HashTableOpenAddressingLinearProbe', () => {
   it('should correct adding values to table and search them', () => {
-    const hashTable = new HashTableLinkedList(100)
+    const hashTable = new HashTableOpenAddressingLinearProbe(100)
 
     hashTable.insert('dot')
     hashTable.insert('tod')
@@ -16,7 +16,7 @@ describe('HashTableLinkedList', () => {
   })
 
   it('should correct deleting values from table', () => {
-    const hashTable = new HashTableLinkedList(100)
+    const hashTable = new HashTableOpenAddressingLinearProbe(100)
 
     hashTable.insert('dot')
     hashTable.insert('tod')

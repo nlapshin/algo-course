@@ -36,6 +36,30 @@ export class LinkedList<T = number> {
     }
   }
 
+  public delete (data: T): Node<T> | null {
+    let current: Node<T> | null = this._head
+    let prev: Node<T> | null = null
+
+    if (current && current.data === data) {
+      this._head = null
+
+      return current
+    }
+
+    while (current != null && current.data !== data) {
+      prev = current
+      current = current.next
+    }
+
+    if (prev === null || current === null) {
+      return null
+    }
+
+    prev.next = current.next
+
+    return current
+  }
+
   public search (data: T): Node<T> | null {
     if (!this._head) {
       return null

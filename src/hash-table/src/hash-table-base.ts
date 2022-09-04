@@ -26,4 +26,9 @@ export class HashTableBase implements IHashTable {
   search (key: string): string | null {
     throw new Error('should be implemented')
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  delete (key: string): string | null {
+    throw new Error('should be implemented')
+  }
 }
