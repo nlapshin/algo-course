@@ -1,6 +1,6 @@
 export class TriePrefixTreeNode {
   // eslint-disable-next-line no-use-before-define
-  public leafs: TriePrefixTreeNode[] = []
+  public leafs: {[key: string]: TriePrefixTreeNode} = {}
 
   private _bite: string
   private _value: string | null = null
@@ -20,7 +20,7 @@ export class TriePrefixTreeNode {
   public push (bite: string): TriePrefixTreeNode {
     const leaf = new TriePrefixTreeNode(bite)
 
-    this.leafs.push(leaf)
+    this.leafs[bite] = leaf
 
     return leaf
   }
@@ -30,10 +30,6 @@ export class TriePrefixTreeNode {
   }
 
   public findLeaf (bite: string): TriePrefixTreeNode | undefined {
-    return this.leafs.find(leaf => this.compare(leaf.bite, bite))
-  }
-
-  private compare (bite: string, compareBite: string): boolean {
-    return bite.charCodeAt(0) === compareBite.charCodeAt(0)
+    return this.leafs[bite]
   }
 }
