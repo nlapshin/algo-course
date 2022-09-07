@@ -11,6 +11,14 @@ describe('StringSearch', () => {
       testWrap(fixtures, stringSearch.fullScan.bind(stringSearch))
     })
   })
+
+  describe('fullScanWithShiftTable', () => {
+    it('should find index using full scanning with offset way', () => {
+      const stringSearch = new StringSearch()
+
+      testWrap(fixtures, stringSearch.fullScanWithShiftTable.bind(stringSearch))
+    })
+  })
 })
 
 function testWrap (fixtures: IFixture[], handler: stringSearchFn) {

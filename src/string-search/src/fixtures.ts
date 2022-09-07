@@ -10,6 +10,8 @@ export const fixtures: IFixture[] = [
   { text: 'abcd', mask: 'cd', expected: 2 },
   { text: 'abcd', mask: 'd', expected: 3 },
   { text: 'abcd', mask: 'abcd', expected: 0 },
+  { text: 'abcd.abcdfeabsd', mask: 'abcdf', expected: 5 },
+  { text: 'колколколоколоколок', mask: 'колокол', expected: 6 },
   { text: 'abcd', mask: 'e', expected: -1 },
   { text: 'abcd', mask: 'abcde', expected: -1 }
 ]
