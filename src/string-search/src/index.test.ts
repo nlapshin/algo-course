@@ -19,6 +19,14 @@ describe('StringSearch', () => {
       testWrap(fixtures, stringSearch.fullScanWithShiftTable.bind(stringSearch))
     })
   })
+
+  describe('boyerMooreSearch', () => {
+    it('should find index using boyer moore search', () => {
+      const stringSearch = new StringSearch()
+
+      testWrap(fixtures, stringSearch.boyerMooreSearch.bind(stringSearch))
+    })
+  })
 })
 
 function testWrap (fixtures: IFixture[], handler: stringSearchFn) {

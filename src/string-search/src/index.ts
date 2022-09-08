@@ -44,6 +44,53 @@ export class StringSearch {
     return -1
   }
 
+  public boyerMooreSearch (text: string, mask: string): number {
+    const charTable = this.makeCharTable(mask)
+    const offsetTable = this.makeOffsetTable(mask)
+
+    let i = mask.length - 1
+
+    while (i <= text.length) {
+      let count = mask.length - 1
+
+      while (mask[count] === text[i]) {
+        if (count === 0) {
+          return i
+        }
+
+        i--
+        count--
+      }
+
+      const charCode = text.charCodeAt(i)
+      i += Math.max(offsetTable[mask.length - 1 - count], charTable[charCode])
+    }
+
+    return -1
+  }
+
+  private makeOffsetTable (mask: string): number[] {
+    const table = []
+    table.length = mask.length
+
+    let lastPrefixPosition = mask.length
+
+    for (let i = mask.length; i > 0; i--) {
+      if (this.isPrefix(mask, i)) {
+        lastPrefixPosition = i
+      }
+
+      table[mask.length - i] = lastPrefixPosition - 1 + mask.length
+    }
+
+    for (let i = 0; i < mask.length - 1; i++) {
+      const suffix = this.suffixLength(mask, i)
+      table[suffix] = mask.length - 1 - i + suffix
+    }
+
+    return table
+  }
+
   private makeCharTable (mask: string): number[] {
     const table = []
 
@@ -57,5 +104,27 @@ export class StringSearch {
     }
 
     return table
+  }
+
+  private isPrefix (mask: string, i: number): boolean {
+    for (let k = 0; i < mask.length; ++k, ++i) {
+      if (mask[i] !== mask[k]) {
+        return false
+      }
+    }
+
+    return true
+  }
+
+  private suffixLength (mask: string, i: number) {
+    const n = mask.length
+    let k = 0
+    let m = n - 1
+
+    for (; i >= 0 && mask[i] === mask[m]; --i, --m) {
+      k += 1
+    }
+
+    return k
   }
 }
