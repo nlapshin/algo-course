@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { StringSearch, stringSearchFn } from './index'
+import { StringSearch, stringSearchFn } from './boyerMoore'
 
 import { fixtures, IFixture } from './fixtures'
 
